@@ -1,16 +1,24 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 70px;
-    margin-bottom: 50px;
-    width: 600px;
-    background: #fff;
-    padding-bottom: 20px;
+.containerMain {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 50px;
+  width: 100%;
+  max-width: 1800px;
+  background: #fff;
+  padding-bottom: 20px;
+  border: 2px solid black;
 }
-  
-  h1 {
-    font-size: 2rem;
-    color: #333;
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Media query for responsive behavior */
+@media screen and (max-width: 1620px) {
+  .containerMain {
+    width: 92%;
   }
-  
+}
