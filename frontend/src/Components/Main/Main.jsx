@@ -5,6 +5,12 @@ import './Calendar.css'; // Import Calendar.css for calendar styling
 import user_icon from '../Assets/profilePicture.png';
 
 const Main = () => {
+  const navigate = useNavigate();
+
+  const handleEventButtonClick = () => {
+    navigate("/create-event");
+  };
+  
   //Calendar 
   const [currentDate, setCurrentDate] = useState(new Date());
 
@@ -99,7 +105,7 @@ const Main = () => {
           <div className="textbody">Create</div>
           <div className="underline"></div>
           <div className='create-container'>
-            <button className="eventButton">Event </button>
+            <button className="eventButton" onClick={handleEventButtonClick}>Event</button>
           </div>
           <div classname='create-container'>
             <button className="eventButton">Calendar </button>

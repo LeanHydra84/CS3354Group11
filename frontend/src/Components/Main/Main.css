@@ -99,7 +99,7 @@ h1 {
   cursor: pointer;
 }
 .profile-picture {
-  width: 40px;
+  width: 60px;
   height: 40px;
   background-color: #ccc;
   border-radius: 50%;
@@ -128,7 +128,7 @@ h1 {
 
 .textCalendars {
   font-size: 18px;
-  
+  margin-top: 5px;
 }
 .underlinebody {
   width: 61px;
