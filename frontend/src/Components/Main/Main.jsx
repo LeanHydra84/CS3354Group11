@@ -37,18 +37,30 @@ const Main = () => {
   const renderCalendar = () => {
     const totalDays = daysInMonth(currentDate);
     const startDay = startDayOfMonth(currentDate);
-
+  
     const days = [];
-
     let dayCount = 1;
+  
+    // Determine the last day of the previous month
+    const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+  
+    // Determine the number of days from the previous month to display
+    const prevMonthDays = startDay;
+  
     // Create table rows
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) { // Change to 5 rows
       const cells = [];
+  
       // Create table cells for the days of the week
       for (let j = 0; j < 7; j++) {
         if (i === 0 && j < startDay) {
-          // Empty cells for days before the start of the month
-          cells.push(<td key={`empty-${j}`} className="empty-cell"></td>);
+          // Empty cells for days before the start of the current month
+          const day = prevMonthLastDay - (prevMonthDays - j) + 1;
+          cells.push(
+            <td key={`prevMonth-${j}`} className="empty-cell">
+              <div className="calendar-number other-month">{day}</div>
+            </td>
+          );
         } else if (dayCount <= totalDays) {
           // Cells with day numbers for the current month
           cells.push(
@@ -58,17 +70,23 @@ const Main = () => {
           );
           dayCount++;
         } else {
-          // Empty cells for days after the end of the month
-          cells.push(<td key={`empty-${j}`} className="empty-cell"></td>);
+          // Empty cells for days after the end of the current month
+          cells.push(
+            <td key={`nextMonth-${j}`} className="empty-cell">
+              <div className="calendar-number other-month">{dayCount - totalDays}</div>
+            </td>
+          );
+          dayCount++;
         }
       }
+  
       // Create table row
       days.push(<tr key={`row-${i}`}>{cells}</tr>);
     }
-
+  
     return days;
   };
-
+  
   // Custom text for days of the week
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   

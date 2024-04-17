@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CreateEvent.css';
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateEvent = () =>  {
     const [title, setTitle] = useState(""); // State to track event title input value
-    const [date, setDate] = useState(""); // State to track event date input value
+    const [date, setDate] = useState(null); // State to track event date input value
     const [time, setTime] = useState(""); // State to track event time input value
     const [description, setDescription] = useState(""); // State to track event description input value
     const [error, setError] = useState("");
@@ -13,17 +14,12 @@ const CreateEvent = () =>  {
 
     const handleSubmit = () => {
         // Check if title, date, and time are empty
-        if (!title.trim() || !date.trim() || !time.trim()) {
+        if (!title.trim() || !date || !time.trim()) {
             setError("Please fill out all fields: Title, Date, and Time.");
             return;
         }
 
         // Check if date and time are valid
-        if (!isValidDate(date) || !isValidTime(time)) {
-            setError("Please enter a valid date.");
-            return;
-        }
-
         if (!isValidTime(time)) {
             setError("Please enter a valid time.");
             return;
@@ -31,22 +27,6 @@ const CreateEvent = () =>  {
 
         // If all validations pass, navigate to home
         navigate("/home");
-    };
-
-    const isValidDate = (date) => {
-        // Regular expression to validate date format (MM/DD/YYYY)
-        const dateFormat = /^\d{2}\/\d{2}\/\d{4}$/;
-
-        if (!date.match(dateFormat)) {
-            return false; // Date format is invalid
-        }
-
-        const parsedDate = new Date(date);
-        if (isNaN(parsedDate.getTime())) {
-            return false; // Date is invalid
-        }
-
-        return true; // Date is valid
     };
 
     const isValidTime = (time) => {
@@ -79,11 +59,10 @@ const CreateEvent = () =>  {
                 </div>
                 <div className="input-container">
                     <div className="info">Date</div>
-                    <input 
-                        type="text" 
-                        placeholder="MM/DD/YYYY" 
-                        value={date} 
-                        onChange={(e) => setDate(e.target.value)} 
+                    <DatePicker 
+                        selected={date}
+                        onChange={(date) => setDate(date)}
+                        placeholderText="Select date"
                         className="input"
                     />
                 </div>
