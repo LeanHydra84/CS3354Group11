@@ -161,3 +161,29 @@ h1 {
     width: 92%;
   }
 }
+
+.editButton
+{
+  font-size: 1px;
+  width: 15px;
+  height: 15px;
+  margin-left: 3px;
+}
+
+/* Add this CSS to adjust the layout */
+.textCalendars {
+  display: flex;
+  align-items: center;
+
+}
+
+.textCalendars input[type="text"] {
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.deleteButton {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+}
