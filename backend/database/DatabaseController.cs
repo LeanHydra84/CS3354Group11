@@ -41,6 +41,11 @@ namespace CollaboraCal
             return dbContext.Users.Include(a => a.Calendars).SingleOrDefault(a => a.EMail == email);
         }
 
+        public User? GetHeavyUserFromID(int id)
+        {
+            return dbContext.Users.Include(a => a.Calendars).SingleOrDefault(a => a.ID == id);
+        }
+
         public bool AddUser(User user)
         {
             if (user.EMail == null) return false;
@@ -94,6 +99,14 @@ namespace CollaboraCal
                 .SingleOrDefault();
         }
 
+        public Calendar? GetUserHeavyCalendar(int calendarID)
+        {
+            return dbContext.Calendars
+                .Where(a => a.ID == calendarID)
+                .Include(a => a.Users)
+                .SingleOrDefault();
+        }
+
         //      EVENTS
 
         public void AddEvent(Event ev)
@@ -107,6 +120,13 @@ namespace CollaboraCal
             Calendar? calendar = GetHeavyCalendar(request.CalendarID);
             TimelineManager timeline = new TimelineManager(request.StartTime, request.EndTime);
             return calendar?.Events?.Where(a => timeline.Overlaps(a.Start, a.End)).ToList();
+        }
+
+        public Event? GetEventFromID(int eventID)
+        {
+            return dbContext.Events
+                    .Where(a => a.ID == eventID)
+                    .SingleOrDefault();
         }
 
     }
